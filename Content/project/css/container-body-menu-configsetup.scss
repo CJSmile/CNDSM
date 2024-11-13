@@ -1,0 +1,196 @@
+﻿/*
+    SMILEDINING-SA18-0026       09/12/2018      Customize       1. Create function LinkToFood
+    SMILEDINING-SA18-0031       09/27/2018      Customize       1. Create function CopyChoice
+    SMILEDINING-SA19-0019       08/26/2019      Customize       1. Modified Drag&Drop list of ChoiceOption to Sortable.
+					                                            2. Modified Drag&Drop list of Choice to Sortable.
+    SMILEDINING-SA20-0018      01/09/2020      Customize        1. Edit Config Setup for Choice Group,Choice Option,Choice Modify and Add Gratuity Charge.
+                                                                2. Add Setting Gratuity Charge to My Setting.
+    SMILEDINING-SA21-0066#24    15/03/2022      Customize       1. Add unlock food, choice and choiceOption from Deliverect in webOwner.
+*/
+
+@import "mixin/_variables.scss";
+@import "mixin/_breakpoints.scss";
+
+$light-color:  #FFB74D;
+$dark-color: #F57C00;
+$theme-color: #FF9800;
+$default-color: #FFF;
+$color-btn-unlock: #979797; //Added and End by SMILEDINING-SA21-0066#24
+//Added by SMILEDINING-SA18-0031
+$color-info: #5BC0DE;
+$border-food: #EEE;
+//End Added by SMILEDINING-SA18-0031
+
+.config_font-head {
+    color: $default-color;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.fa-arrow-2x {
+    font-size: 2rem;
+}
+
+.font_bold {
+    font-weight: bold;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.dx-datagrid-headers .dx-row {
+    background-color: $theme-color;
+    text-align: center;
+}
+
+.dx-header-row {
+    color: $default-color;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dx-datagrid-headers .dx-datagrid-text-content
+{
+    text-align: center;
+}
+
+.myRow-hover :hover {
+    cursor: pointer;
+}
+
+.configsetup-datagrid {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+//Added by SMILEDINING-SA18-0026
+#modalSetLinkToFood{
+    .modal-dialog{
+        max-width:1000px;
+        .modal-content{
+            padding-bottom:70px;
+            .dx-freespace-row {
+                height: 0px !important;
+            }
+        }
+        .bluetxt{
+            color:blue;
+        }
+    }
+    .btn-linktofood{
+        .right{
+            display:flex;
+            align-items:center;
+            padding-bottom: 20px;
+            justify-content: flex-end;
+        }
+    }
+    .grid-linktofood{
+        .bg{
+            .dx-header-row{
+                background-color: $theme-color;
+            }
+            .dx-treelist-select-all .dx-checkbox{
+                background-color: $theme-color;
+            }
+        }
+    }
+}
+//End Added by SMILEDINING-SA18-0026
+//Added by SMILEDINING-SA18-0031
+.popoverCopyChoice{
+    .dx-popup-content{
+        padding: 10px 10px 10px 13px;
+    }
+}
+
+.panel-cart-copy-choice {
+    position: fixed;
+    top: 15%;
+    right: 2%;
+    display: inline-block;
+    width: 250px;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    overflow: hidden;
+    z-index: 1;
+    border: 1px solid $color-info;
+    padding-bottom:10px;
+    .card-header {
+        padding: 5px 0 0 0;
+        font-weight: bold;
+        background-color: $color-info;
+        color: $white;
+    }
+    //Added by SMILEDINING-SA20-0018
+    .card-header-copy-modify {
+        padding: 5px 0 0 0;
+        font-weight: bold;
+        background-color: #0dc24e;
+        color: $white;
+    }
+    //End Added by SMILEDINING-SA20-0018
+    .card-block {
+        padding: 4px 0px 10px 0px;
+    }
+    .choice {
+        display: block;
+        margin: 0 3px 0 3px;
+        padding: 6px 5px 6px 20px;
+        .choiceName {
+            width: 210px;
+            font-size: 15px;
+        }
+
+        .delete {
+            z-index: 2;
+            position: relative;
+            right: -5px;
+            padding-right: 5px;
+
+            a {
+                i {
+                    color: $red;
+                }
+            }
+        }
+
+        &:hover {
+            cursor: default;
+            -webkit-box-shadow: inset 0 100px 50px $border-food;
+            -moz-box-shadow: inset 0 100px 50px $border-food;
+            box-shadow: inset 0 100px 50px $border-food;
+            width: auto;
+        }
+    }
+}
+//End Added by SMILEDINING-SA18-0031
+
+//Added by SMILEDINING-SA20-0018
+.card-copy-modify {
+    border: 1px solid #1e9f42;
+}
+//End Added by SMILEDINING-SA20-0018
+
+//Added by SMILEDINING-SA19-0019
+.highlight {        
+        border: 5px solid $theme-color;
+        font-weight: bold;
+        line-height: 25px;
+        padding: 25px;
+        background-color: lightblue;
+    }
+//End Added by SMILEDINING-SA19-0019
+
+//Added by SMILEDINING-SA21-0066#24
+.btnUnlockDeliverect {
+    color: $default-color;
+    background-color: $color-btn-unlock;
+    &:hover{
+        background-color:darken($color-btn-unlock,10%);
+    }
+}
+//End Added by SMILEDINING-SA21-0066#24

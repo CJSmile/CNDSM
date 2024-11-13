@@ -1,0 +1,173 @@
+﻿
+@import "mixin/_variables.scss";
+@import "mixin/_breakpoints.scss";
+
+$gb_callout-absolute-default-color: #777;
+$gb_callout-absolute-primary-color: #428BCA;
+$bs-callout-border-color: #EEE;
+$text-warning-login-color: #8A6D3B;
+
+/* Common styles for all types*/
+.bs-callout {
+    padding: 20px;
+    border: 1px solid $bs-callout-border-color;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+
+.bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+
+.bs-callout code {
+    border-radius: 3px;
+}
+
+.bs-callout + .bs-callout {
+    margin-top: -5px;
+}
+
+.bs-callout-default {
+    border-left-color: $gb_callout-absolute-default-color;
+}
+
+.bs-callout-default h4 {
+    color: $gb_callout-absolute-default-color;
+}
+
+.bs-callout-primary {
+    border-left-color: $gb_callout-absolute-primary-color;
+}
+
+.bs-callout-primary h4 {
+    color: $gb_callout-absolute-primary-color;
+}
+
+.bs-callout-success {
+    border-left-color: $green;
+}
+
+.bs-callout-success h2, .bs-callout-success h3, .bs-callout-success h4, .bs-callout-success h5 {
+    color: $green;
+}
+
+.bs-callout-danger {
+    border-left-color: $red;
+}
+
+.bs-callout-danger h2, .bs-callout-danger h3, .bs-callout-danger h4, .bs-callout-danger h5 {
+    color: $red;
+}
+
+.bs-callout-warning {
+    border-left-color: $orange;
+}
+
+.bs-callout-warning h2, .bs-callout-warning h3, .bs-callout-warning h4, .bs-callout-warning h5 {
+    color: $orange;
+}
+
+.bs-callout-info {
+    border-left-color: $teal;
+}
+
+.bs-callout-info h2, .bs-callout-info h3, .bs-callout-info h4, .bs-callout-info h5 {
+    color: $teal;
+}
+
+/*
+ * callout-absolute
+ *
+ */
+.gb_callout-absolute-default {
+    position: absolute !important;
+    margin: -6px 0 0 0;
+    color: $gb_callout-absolute-default-color;
+}
+
+.gb_callout-absolute-primary {
+    position: absolute !important;
+    margin: -6px 0 0 0;
+    color: $gb_callout-absolute-primary-color;
+}
+
+.gb_callout-absolute-success {
+    position: absolute !important;
+    margin: -6px 0 0 0;
+    color: $green;
+}
+
+.gb_callout-absolute-danger {
+    position: absolute !important;
+    margin: -6px 0 0 0;
+    color: $red;
+}
+
+.gb_callout-absolute-warning {
+    position: absolute !important;
+    margin: -6px 0 0 0;
+    color: $orange;
+}
+
+.gb_callout-absolute-info {
+    position: absolute !important;
+    margin: -6px 0 0 0;
+    color: $teal;
+}
+
+.information {
+    height: 100%;
+
+    .text-warning-login {
+        color: $text-warning-login-color;
+        font-size: 0.875rem;
+    }
+
+    h3 {
+        font-size: 1.22rem;
+    }
+}
+
+@include media-breakpoint-down(xs) {
+    .groupRegister {
+        font-size: 0.85rem;
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .height-col {
+        margin: 10px 0 0 0;
+    }
+
+    .information{
+        margin-top: 15px;
+
+        h3 {
+            font-size: 1.8rem;
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .equal, .equal > div[class*='col-'] {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: inline-flex;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .height-col {
+        height: 250px;
+        margin: 0 0 10px 0;
+    }
+}

@@ -1,0 +1,163 @@
+﻿@import "mixin/_variables.scss";
+@import "mixin/_breakpoints.scss";
+
+$box-shadow-color :RGBA(0,0,0,0.2);
+$theme-color-orange: #F58E00;
+
+.scroll-menusidebar {
+    position: fixed;
+    width: 160px;
+
+    ul {
+        display: block;
+        li {
+            a {
+                cursor: pointer;
+                text-decoration: none !important;
+            }
+        }
+    }
+}
+
+.navbar-index {
+    z-index: 1;
+}
+
+/*Side Nav Menu FULL*/
+.side-nav-memu {
+    padding: 0;
+    width: 200px;
+    max-width: 200px;
+    i {
+        color: $theme-color-orange;
+        margin-left: 5px;
+        margin-right: 5px;
+        width: 15px;
+    }
+
+    li {
+        overflow: hidden;  
+        display: block;
+        background-color: $white;
+        box-shadow: 1px 1px 2px $box-shadow-color;
+        margin-bottom: 4.5px;
+        border-left: 10px solid $theme-color-orange;
+        -moz-transition: all 300ms ease-in-out;
+        -o-transition: all 300ms ease-in-out;
+        -webkit-transition: all 300ms ease-in-out;
+        transition: all 300ms ease-in-out;
+        height:43px;  
+    }
+
+    li:last-child {
+        margin-bottom: 0;
+    }
+
+    li a {
+        padding :9px;
+        text-align: left;
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: $black;
+        position: relative;
+
+    }
+
+    li:hover {
+        border-color: $yellow;
+    }
+
+    li:hover a {
+        background-color: $theme-color-orange;
+        color: $white;
+    }
+
+    li:hover i {
+        color: $white;
+    }
+
+    li.active {
+        border-color: $yellow;
+        background-color: $theme-color-orange;
+
+        a {
+            color: $white;
+        }
+
+        i {
+            color: $white;
+        }
+    }
+
+    li > a:focus {
+        background-color: $theme-color-orange !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+
+    .side-nav-memu {
+        width: 170px;
+        max-width: 170px;
+    }
+}
+
+/*Side Nav Menu SM*/
+@media (min-width: 768px) and (max-width: 991px) {
+    .scroll-menusidebar {
+        position: fixed;
+        width: 160px;
+
+        ul {
+            display: block;
+            margin : 0 0 0 -4.5rem;  
+            li {
+                a {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .side-nav-memu {
+
+        i{
+            margin: 0.8rem;
+        }
+        li {
+            width: 50px;
+            height: 40px;
+            background-color: $white;
+            box-shadow: 1px 1px 2px $box-shadow-color;
+            margin-bottom: 4px;
+            border-left: 10px solid $theme-color-orange;
+            transition: all 300ms ease-in-out;
+            -moz-transition: all 300ms ease-in-out;
+            -o-transition: all 300ms ease-in-out;
+            -webkit-transition: all 300ms ease-in-out;
+        }
+
+        li a{
+            padding:0;
+        }
+
+        li a span {
+            margin:0.6rem; 
+            width: 200px;
+            position: absolute;
+            visibility: hidden;
+            display: none;
+        }
+
+        li:hover {
+            width: 200px;
+            z-index:3;
+
+            a span {
+                visibility: visible;
+                display: inline;
+            }
+        }
+    }
+}

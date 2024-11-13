@@ -1,0 +1,61 @@
+﻿/*
+*   SMILEDINING-SA20-0007      07/07/2020      Customize               1. New feature Gift Card.
+    SMILEDINING-SA22-0013      23/05/2022      Customize               1. Add menu Delivery Billing for show report in webowner.
+    SMILEDINING-SA22-0013#1    23/05/2022      Customize               1. Move menu delivery billing leave of menu liveorder.
+*/
+
+.liveOrder{
+    .phone{
+        /*.overflow{
+            height: 150px;
+            overflow: scroll
+        }*/
+        .btn.print{
+            position: absolute;
+            right: 30px;
+            top: 25px;
+        }
+    }
+    #collapseBill{
+        td{
+            &.remove{
+                padding: 0 0; 
+                border-top: 0;
+            }
+        }
+    }
+}
+
+//Modified by SMILEDINING-SA22-0013#1
+//Added by SMILEDINING-SA22-0013
+/*.deliveryBilling {
+    .card-header {
+        .print {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+        }
+    }
+
+    .card-block {
+        #divDeliveryBillingPrint {
+            .shop-street {
+                width: 20rem;
+            }
+
+            .table-head-color {
+                color: white;
+
+                .column-1 {
+                    width: 8rem;
+                }
+
+                .column-3 {
+                    width: 10rem;
+                }
+            }
+        }
+    }
+}*/
+//End Added by SMILEDINING-SA22-0013
+//End Modified by SMILEDINING-SA22-0013#1

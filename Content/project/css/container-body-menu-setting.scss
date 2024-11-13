@@ -1,0 +1,1661 @@
+﻿/**
+    SMILEDINING-SA19-0004      03/13/2019      Customize    1. Add new tab menu 'Announcement' to 'Menu Setting' of SmileOwner
+                                                            2. Move 'Broad Text' of Menu Setting to 'Announcement'
+                                                            3. Create ''Announcement' module that include Header, Description, Badge.
+                                                            4. Add 'broad-active'  status for enable/disable on SmileDining (1=enable, 0=disable)
+                                                            6. Upload/Delete AnnounceImage
+                                                            7. Delete Shop Logo       
+    SMILEDINING-SA19-0005      03/25/2019      Customize    1. Gennerate sql script for create table 'tbdeliveryfreetime'
+                                                            2. Add Delivery Free Time UI for Draw Maps and Set Mile at MySetting menu
+                                                            3. Delivery Free Time can separate date between Zone1, Zone2 and Zone3
+                                                            4. Control delivery charge of SmileDining depending on Shop map code and Zone of delivery
+    SMILEDINING-SA19-0017      08/15/2019      Customize    1. Create Shop Status
+                                                            2. Create Shop Close StartDate and Shop Close EndDate
+                                                            3. Create Shop Close Reason
+                                                            4. Create Shipping Type
+                                                            5. Fix 'Active button' of Announcement Tab in IE
+    SMILEDINING-SA19-0021      09/02/2019      Customize    1. Change Design Menu Setting. 
+    SMILEDINING-SA20-0006      06/23/2020      Customize    1. Add checkbox Smile Contactless Dining on Menu Setup and update ProductID in database when update,add,copy food 
+                                                            2. Add filter Product on Menu Setup
+                                                            3. Add filter Product on Mysetting
+    SMILEDINING-SA20-0016      21/10/2020      Customize    1. Promotion free food.
+    SMILEDINING-SA20-0032      10/29/2020      Customize    1. Add Tip Auto setting in Web Owner /Add field tip-auto globalConfig. 
+                                                            2. Add radio button tip guide auto/Modal Custom Amount tip in Web Dining.
+                                                            3. Config setting Service to keep data tbglobalconfig , tbglobalconfig_contactless.
+    SMILEDINING-SA20-0028      21/10/2020      Customize    1. Upload Image Announcement(Lightbox)
+                                                            2. Add GlobalConfig image-annonce/image-announce-size/image-announce-active
+    SMILEDINING-SA20-0043      15/12/2020      Customize    1. Custom map zone mile price.
+    SMILEDINING-SA20-0031      02/12/2020      Customize    1. Adjust shop close period date and time.
+    SMILEDINING-SA21-0004      24/01/2021      Customize    1. Close special instruction some menu or some category. 
+    SMILEDINING-SA20-0048      28/12/2020      Customize    1. Discount code one time use.
+    SMILEDINING-SA20-0048#1    19/03/2021      Customize    1. Modified excel file DiscountOneTimeUse. 
+    SMILEDINING-SA21-0035      02/08/2021      Customize    1. Add upload background image in webOwner only Smile Contactless Dining. (Smile On Table P1)
+                                                            2. Create new Views following UI frame 1 and frame 2. (Smile On Table P1)
+    SMILEDINING-SA21-0035#11   07/12/2021      Customize    1. Fix bug UI upload background image in webOwner only Smile Contactless Dining.
+    SMILEDINING-SA22-0034      06/09/2022      Customize    1. Edit Menu Hour can add more than two period in WebOwner.
+    WEB-SA22-0040              26/09/2022      Customize    1. New feature minimum order delivery charge.
+    WEB-SA22-0040#1            30/09/2022      Customize    1. Fix bug UI and button save minimum order delivery charge in webOwner.
+    WEB-SA23-0045              23/08/2023      Customize    1. Add setting discount time on webOwner, webDining, webOnTable.
+    WEB-SA24-0012              22/04/2024      Customize    1. New requriement - Add setting promotion "Day Of Week" on webOwner, webDining, webOnTable.
+                                                            2. Fix bug promotion shippping type and maximum uses on webOwner, webDining, webOnTable.
+                                                            3. Fix bug clear discount code when don't use on webDining.
+    WEB-SA24-0016              05/06/2024      Customize    1. New requirement - Add pay at store only and notification for Smile On Table on webOwner, webSupport, webOnTable.
+*/
+
+@import "mixin/_variables.scss";
+@import "mixin/_breakpoints.scss";
+
+$tab-color-brown: lighten(#966F33,15%);
+$tab-color-panel: lighten(#F7EEC6,10%);
+
+$tab-background-color: $orange;
+$tab-checked-border-color: $tab-color-brown;
+$tab-border-color: $tab-color-brown;
+$tab-text-color: $white;
+$tab-checked-text-color: $white;
+$tab-hover-color: $tab-color-brown;
+$tab-body-wrapper-color: $tab-color-panel;
+$tab-delimiter-line-height: 5px;
+$tab-label-height: 3em;
+$button-zone-active-background: #FBEFCC;
+$button-zone-active-border: $orange;
+$foodPanel-border-color: #E3E3E3;
+$link-edit-section-icon-hover: #C49751;
+$foodPanel-color: $white;
+$foodName-color: $orange;
+$foodPrice-color: $red;
+$foodDesc-color: darken(#E3E3E3,30%);
+$theme-color-orange: #F58E00;
+$theme-color-orange-dark: #F57C00;  //Added and End by SMILEDINING-SA20-0048
+$theme-color: #FF9800;  //Added and End by SMILEDINING-SA21-0004
+
+//tab time
+$btn-sun-color: lighten(#f00,15%);
+$btn-mon-color: darken(#fcff03,10%);
+$btn-tue-color: lighten(#E91E63,15%);
+$btn-wed-color: lighten(#4CAF50,10%);
+$btn-thu-color: lighten(#FFC107,10%);
+$btn-fri-color: lighten(#2196F3,10%);
+$btn-sat-color: lighten(#9C27B0,10%);
+
+$btn-sun-color-hover: #d50000;
+$btn-mon-color-hover: #fcff03;
+$btn-tue-color-hover: #E91E63;
+$btn-wed-color-hover: #4CAF50;
+$btn-thu-color-hover: #FFC107;
+$btn-fri-color-hover: #2196F3;
+$btn-sat-color-hover: #9C27B0;
+$btn-allday-color-hover: #888;
+
+$small-color: #777;
+$hover-bg-color: #F5F5F5;
+$arrow-border: $orange;
+
+$btn-outline-red : #EA3D52;
+$btn-group-food :  #F58e00;
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: $orange;
+}
+
+.zone-active {
+    background-color: $button-zone-active-background;
+    border-color: $button-zone-active-border;
+}
+
+.tab-mysetting {
+    margin: -20px 35px 0 35px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#divSetting-MapZone {
+
+    small {
+        color: $small-color;
+    }
+}
+
+#frmUploadImageSetting{
+    margin-top:15px;
+    margin-bottom: 15px;
+}
+
+//Added by SMILEDINING-SA21-0035
+#frmUploadImageBackgroundSetting{
+    margin-top:15px;
+    margin-bottom: 15px;
+    //Added by SMILEDINING-SA21-0035#11
+    .input-group label{
+        padding-right: 100px;
+    }
+    //End Added by SMILEDINING-SA21-0035#11
+}
+//End Added by SMILEDINING-SA21-0035
+//Tab Time
+.btn-circle.sun {
+    color: $white;
+    margin-right: 20px;
+    background-color: $btn-sun-color;
+    border: 2px solid transparent;
+    -moz-transition: border-color .3s ease-in-out;
+    -o-transition: border-color .3s ease-in-out;
+    -webkit-transition: border-color .3s ease-in-out;
+    transition: border-color .3s ease-in-out;
+    border-radius: 25px;
+    padding: 10px 8px;
+
+    &:hover {
+        border-color: $btn-sun-color-hover;
+    }
+}
+
+.btn-circle.mon {
+    color: $white;
+    margin-right: 20px;
+    background-color: $btn-mon-color;
+    border: 2px solid transparent;
+    -moz-transition: border-color .3s ease-in-out;
+    -o-transition: border-color .3s ease-in-out;
+    -webkit-transition: border-color .3s ease-in-out;
+    transition: border-color .3s ease-in-out;
+    border-radius: 25px;
+    padding: 10px 8px;
+
+    &:hover {
+        border-color: $btn-mon-color-hover;
+    }
+}
+
+.btn-circle.tue {
+    color: $white;
+    margin-right: 20px;
+    background-color: $btn-tue-color;
+    border: 2px solid transparent;
+    -moz-transition: border-color .3s ease-in-out;
+    -o-transition: border-color .3s ease-in-out;
+    -webkit-transition: border-color .3s ease-in-out;
+    transition: border-color .3s ease-in-out;
+    border-radius: 25px;
+    padding: 10px 8px;
+
+    &:hover {
+        border-color: $btn-tue-color-hover;
+    }
+}
+
+.btn-circle.wed {
+    color: $white;
+    margin-right: 20px;
+    background-color: $btn-wed-color;
+    border: 2px solid transparent;
+    -moz-transition: border-color .3s ease-in-out;
+    -o-transition: border-color .3s ease-in-out;
+    -webkit-transition: border-color .3s ease-in-out;
+    transition: border-color .3s ease-in-out;
+    border-radius: 25px;
+    padding: 10px 8px;
+
+    &:hover {
+        border-color: $btn-wed-color-hover;
+    }
+}
+
+.btn-circle.thu {
+    color: $white;
+    margin-right: 20px;
+    background-color: $btn-thu-color;
+    border: 2px solid transparent;
+    -moz-transition: border-color .3s ease-in-out;
+    -o-transition: border-color .3s ease-in-out;
+    -webkit-transition: border-color .3s ease-in-out;
+    transition: border-color .3s ease-in-out;
+    border-radius: 25px;
+    padding: 10px 8px;
+
+    &:hover {
+        border-color: $btn-thu-color-hover;
+    }
+}
+
+.btn-circle.fri {
+    color: $white;
+    margin-right: 20px;
+    background-color: $btn-fri-color;
+    border: 2px solid transparent;
+    -moz-transition: border-color .3s ease-in-out;
+    -o-transition: border-color .3s ease-in-out;
+    -webkit-transition: border-color .3s ease-in-out;
+    transition: border-color .3s ease-in-out;
+    border-radius: 25px;
+    padding: 10px 8px;
+
+    &:hover {
+        border-color: $btn-fri-color-hover;
+    }
+}
+
+.btn-circle.sat {
+    color: $white;
+    margin-right: 20px;
+    background-color: $btn-sat-color;
+    border: 2px solid transparent;
+    -moz-transition: border-color .3s ease-in-out;
+    -o-transition: border-color .3s ease-in-out;
+    -webkit-transition: border-color .3s ease-in-out;
+    transition: border-color .3s ease-in-out;
+    border-radius: 25px;
+    padding: 10px 8px;
+
+    &:hover {
+        border-color: $btn-sat-color-hover;
+    }
+}
+
+.is-active-sun {
+    border-color: $btn-sun-color-hover !important;
+}
+
+.is-active-mon {
+    border-color: $btn-mon-color-hover !important;
+}
+
+.is-active-tue {
+    border-color: $btn-tue-color-hover !important;
+}
+
+.is-active-wed {
+    border-color: $btn-wed-color-hover !important;
+}
+
+.is-active-thu {
+    border-color: $btn-thu-color-hover !important;
+}
+
+.is-active-fri {
+    border-color: $btn-fri-color-hover !important;
+}
+
+.is-active-sat {
+    border-color: $btn-sat-color-hover !important;
+}
+
+.is-active-allday {
+    border-color: $btn-allday-color-hover !important;
+}
+
+.link-active-allday {
+    text-decoration: underline;
+}
+
+label.period {
+    margin-top: 5px;
+}
+
+//Added By SMILEDINING-SA19-0004 
+.label-uploadfile{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.col-text{
+    transform: translateY(35%);
+}
+
+.col-input{
+    transform: translateY(15%);
+}
+
+.col-shopLogo{
+    transform:translateY(45%);
+}
+
+.active-moveup{
+    margin-top:-85px;
+    position:absolute;
+    right:0;
+}
+
+//Added by SMILEDINING-SA19-0017
+.min-width-200{    
+    min-width:200px;
+}
+
+.pickup-delivery-move{
+    margin-left: 0;
+}
+
+.padding-top-8{
+    padding-top:8px;
+}
+//End Added by SMILEDINING-SA19-0017
+
+.upload-movedown{
+       margin-top:50px;
+}
+
+//Modified by SMILEDINING-SA20-0028
+/*.btnDel-move{    
+      display:block;
+      position: absolute;
+      right: 120px;
+      top: 8px;    
+}*/
+//End Modified by SMILEDINING-SA20-0028
+
+//Added by SMILEDINING-SA20-0028
+
+/*Modified by SMILEDINING-SA20-0048#1*/
+/*input[type=file] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100px;
+}*/
+/*End Modified by SMILEDINING-SA20-0048#1*/
+
+#frmDeleteImageLogo{
+    .btnDel-move{    
+          display:block;
+          position: absolute;
+          /*right: 120px;
+          top: 8px;*/  
+          right: 70px;  
+          top: 21px;
+    }
+}
+
+//Added by SMILEDINING-SA21-0035
+#frmDeleteImageBackground {
+    .btnDel-move{    
+          display:block;
+          position: absolute;
+          //Modified by SMILEDINING-SA21-0035#11
+          //right: 35px;
+          //top: 116px;
+          //End Modified by SMILEDINING-SA21-0035#11
+          //Added by SMILEDINING-SA21-0035#11
+          right: 105px;
+          top: 120px;
+          z-index: 100;
+          button {
+              font-size: 1.875rem;
+          }
+          //End Added by SMILEDINING-SA21-0035#11
+    }
+}
+//End Added by SMILEDINING-SA21-0035
+
+#frmDeleteAnnounceImage, #frmDeleteAnnounceCustomImage{
+    .btnDel-move{    
+          display:block;
+          position: absolute;
+          /*right: 100px;*/
+          right: 70px;  
+          top: 61px;  
+    }
+}
+//End Added by SMILEDINING-SA20-0028
+
+//Added By SMILEDINING-SA19-0005
+.col-switchMapZone{
+    transform:translateY(20%);
+}
+
+#divShowDeliveryFreeTime{
+    position:relative;
+
+    .label-zonename {
+        font-weight:bold;
+       padding-left:15px;
+    }
+
+}
+//End Added By SMILEDINING-SA19-0005
+
+//Added by SMILEDINING-SA20-0043
+#divShowCustomMapZoneMile {
+    position: relative;
+
+    .label-zonename {
+        font-weight: bold;
+        padding-left: 15px;
+    }
+    .card-custom-mile {
+        width :750px;
+        height:300px;
+        margin-left:30px;
+        margin-top:20px;
+        margin-bottom:20px;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+}
+//End Added by SMILEDINING-SA20-0043
+
+//Added by SMILEDINING-SA21-0004
+#modalShowInstructions{
+	.grid-linktofood{
+        height : 520px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .bg{
+            .dx-header-row{
+                background-color: $theme-color;
+            }
+            .dx-treelist-select-all .dx-checkbox{
+                background-color: $theme-color;
+            }
+            .dx-treelist-rowsview {
+                height: 414px;
+            }
+        }
+    }
+}
+//End Added by SMILEDINING-SA21-0004
+
+
+/*Added By SMILEDINING-SA19-0008*/
+.gb_margin-left-5px{
+    margin-left:5px;
+}
+
+.gb_margin-left-16px{
+    margin-left:16px;
+}
+
+textarea {
+   resize: none;
+}
+/*End Added By SMILEDINING-SA19-0008*/
+
+/*
+ * bootstrap no space column
+ *
+ */
+.gb_no-gutter > [class*='col-'] {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+//group input first-second time
+.group-firsttime {
+    margin-top: 10px;
+
+    .from {
+        margin: 5px 5px 0 15px;
+    }
+
+    .to {
+        margin: 5px 0 0 0;
+    }
+
+    .center {
+        margin: 5px 0 0 0;
+    }
+
+    .am {
+        margin: 0 0 0 5px;
+    }
+
+    .show-period {
+        margin: 7px 0 0 -8%;
+    }
+
+    .show {
+        margin: 0 0 0 -10px;
+        cursor: pointer;
+    }
+}
+
+.show-period-2 {
+    margin-top: 10px;
+
+    button {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 40px;
+
+        &:hover {
+            background-color: $hover-bg-color;
+        }
+    }
+}
+
+.group-secondtime {
+    margin-top: 10px; //Added and End by SMILEDINING-SA22-0034
+    
+    .from {
+        margin: 5px 5px 0 15px;
+    }
+
+    .to {
+        margin: 5px 0 0 0;
+    }
+
+    .center {
+        margin: 5px 0 0 0;
+    }
+
+    .am {
+        margin: 0 0 0 5px;
+    }
+
+    .show-period {
+        margin: 7px 0 0 -8%;
+    }
+
+    .show {
+        margin: 0 0 0 -10px;
+        cursor: pointer;
+    }
+
+    .hidden-secondperiod {
+        margin: -5px 0 0 0;
+        position: absolute;
+        left: 85%;
+    }
+}
+
+/*arrow when click btn-circle*/
+.arrow_box {
+    position: relative;
+    background: $white;
+    border: 1px solid $arrow-border;
+    //height: 180px; //Modified and End by SMILEDINING-SA22-0034
+    min-height: 180px; //Added and End by SMILEDINING-SA22-0034
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    .sun {
+        margin: 10px 5px 0 10px;
+
+        &:after, &:before {
+            bottom: 100%;
+            left: 12.5%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        &:after {
+            border-color: rgba(255, 255, 255, 0);
+            border-bottom-color: $white;
+            border-width: 10px;
+            margin-left: -10px;
+        }
+
+        &:before {
+            border-color: rgba(54, 168, 50, 0);
+            border-bottom-color: $arrow-border;
+            border-width: 11px;
+            margin-left: -11px;
+        }
+    }
+
+    .mon {
+        @extend .sun;
+
+        &:after, &:before {
+            left: 24.5%;
+        }
+    }
+
+    .tue {
+        @extend .sun;
+
+        &:after, &:before {
+            left: 36.5%;
+        }
+    }
+
+    .wed {
+        @extend .sun;
+
+        &:after, &:before {
+            left: 48.5%;
+        }
+    }
+
+    .thu {
+        @extend .sun;
+
+        &:after, &:before {
+            left: 60%;
+        }
+    }
+
+    .fri {
+        @extend .sun;
+
+        &:after, &:before {
+            left: 72%;
+        }
+    }
+
+    .sat {
+        @extend .sun;
+
+        &:after, &:before {
+            left: 84%;
+        }
+    }
+
+    .all {
+        @extend .sun;
+
+        &:after, &:before {
+            border-width: 0;
+        }
+    }
+}
+
+//Added by SMILEDINING-SA20-0032
+.tipsAuto{
+    &.hover{
+        border: 2px solid $blue;
+    }
+}
+//End Added by SMILEDINING-SA20-0032
+
+//Added by SMILEDINING-SA21-0035#11
+#modalUploadImageBackground {
+    .img-background {
+        width: 100%;
+        height: 255px;
+    }
+    .img-background-mobile {
+        width: 100%;
+        height: 248px;
+    }
+    .img-background-crop {
+        width: 100%;
+        height: 100%
+    }
+    .switch-desc {
+        font-size: 0.875rem;
+        font-weight: normal;
+    }
+    .bg-footer {
+        margin-top:16px;
+    }
+    .drag-container {
+        position: absolute;
+        top: 15;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 766px;
+        height: 255px;
+        z-index: 100;
+
+        &.mobile{
+            height: 248px;
+        }
+    }
+    .text-drag {
+        font-size: 1.5rem;
+        font-weight: normal;
+        color: #d7d8d2;
+        background-color: rgba(233,228,219,0.3);
+        padding: 10px 20px;
+
+        i {
+            font-size: 1.3rem;
+        }
+    }
+}
+//End Added by SMILEDINING-SA21-0035#11
+
+//Added by WEB-SA22-0040
+#modalMinimumOrderDeliveryCharge{
+    .card-block {
+        padding: 15px;
+    }
+    .instruction {
+        display: flex;
+        font-size: 0.875rem;
+        .title {
+            min-width: 5.875rem;
+        }
+        .content {
+            max-width: 28.75rem;
+        }
+    }
+    .divMinimumOrder {
+        .card {
+            margin-top: 10px;
+        }
+        .form-group {
+            label {
+                font-size: 0.875rem;
+                margin-top: 15px;
+            }
+            .price {
+                margin-top: 15px;
+            }
+        }
+        .removeMinimumOrder {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            top: -5px;
+            right: -4px;
+            span{
+                font-size: 0.5em;
+                margin-top: -4px;
+            }
+        }
+        .btn-link {
+            font-weight: bold;
+            margin-left: 3px;
+        }
+    }
+}
+//End Added by WEB-SA22-0040
+
+//Added by SMILEDINING-SA21-0035
+@media (min-width: 200px) and (max-width: 319px) {
+    #uploadShopImageBackground{
+        .upload-button{
+            left: 25px;
+            top : 10px;
+        }        
+    }
+    #frmDeleteImageBackground {
+        .btnDel-move{    
+            //Modified by SMILEDINING-SA21-0035#11
+            //right: 8px;
+            //top: 258px;
+            //End Modified by SMILEDINING-SA21-0035#11
+            top: 215px; //Added and End by SMILEDINING-SA21-0035#11
+        }
+    }
+}
+//End Added by SMILEDINING-SA21-0035
+
+@media (min-width: 320px) and (max-width: 575px) {
+    .margin-top-delivery-zone2 {
+        margin-top: 8px;
+    }
+
+    #divSetting-Restaurant .margin-top-endmile {
+        margin-top: 15px;
+    }
+
+    .margin-top-endmile {
+        margin-top: 15px;
+    }
+
+    .group-firsttime {
+        margin-top: 10px;
+
+        .from {
+            margin: 5px 5px 0 15px;
+        }
+
+        .to {
+            margin: 5px 0 0 5px;
+        }
+
+        .show-period {
+            margin: 7px 0 0 -11%;
+
+            .show {
+                display: none;
+            }
+
+            .hidden-secondperiod {
+                position: absolute;
+                left: 50%;
+            }
+        }
+    }
+
+    //Added by SMILEDINING-SA19-0004
+    //Modified by SMILEDINING-SA19-0021
+    /*#uploadShopImage{
+        .upload-button{
+            left:-29px;
+        }        
+    }*/
+    //End Modified by SMILEDINING-SA19-0021
+
+    //Added by SMILEDINING-SA19-0021
+    #uploadShopImage{
+        .upload-button{
+            left:-5px;
+            top : 10px;
+        }        
+    }
+    .upload-movedown{
+        .upload-button{
+            left:-5px;
+            top : 10px;
+        }
+    } 
+    //End Added by SMILEDINING-SA19-0021
+
+    //Added by SMILEDINING-SA21-0035
+    #uploadShopImageBackground{
+        .upload-button{
+            left: 25px;
+            top : 10px;
+        }        
+    }
+    //End Added by SMILEDINING-SA21-0035
+    //Modified by SMILEDINING-SA19-0021
+    /*.btnDel-move{
+           right: 1px;
+           top: 102px;
+     }
+    .upload-movedown{
+        .upload-button{
+            left:-29px;
+            padding-bottom:10px;
+        }
+    } 
+
+    */
+    //Endd Modified by SMILEDINING-SA19-0021
+    //Modified by SMILEDINING-SA20-0028
+    /*//Added by SMILEDINING-SA19-0021
+    .btnDel-move{
+           right: 5px;
+           top: 98px;
+     }
+    //End Added by SMILEDINING-SA19-0021*/
+    //End Modified by SMILEDINING-SA20-0028
+    //Added by SMILEDINING-SA20-0028
+    #frmDeleteImageLogo{
+    .btnDel-move{    
+          right: 8px;  
+          top: 97px;
+        }
+    }
+
+    #frmDeleteAnnounceImage, #frmDeleteAnnounceCustomImage{
+        .btnDel-move{    
+              right: 8px;  
+              top: 135px;  
+        }
+    }
+
+    #frmUploadAnnounceImage, #frmUploadAnnounceImage{
+        .upload-button{
+            margin-top: 8px;
+        }
+    }            
+    //End Added by SMILEDINING-SA20-0028
+    //Added by SMILEDINING-SA21-0035
+    #frmDeleteImageBackground {
+        .btnDel-move{    
+            //Modified by SMILEDINING-SA21-0035#11
+            //right: 8px;
+            //top: 258px;
+            //End Modified by SMILEDINING-SA21-0035#11
+            top: 215px; //Added and End by SMILEDINING-SA21-0035#11
+        }
+    }
+    //End Added by SMILEDINING-SA21-0035
+
+    .active-moveup {      
+       position: absolute;
+       margin-top: -160px;
+       right:0;
+    }
+    //End Added by SMILEDINING-SA19-0004
+
+    //Added by SMILEDINING-SA19-0005
+    #divShowDeliveryFreeTime{
+        .group-firsttime {
+        margin-top: 10px;
+
+            .from {
+                margin: 5px 5px 0 5px;
+            }
+
+            .to {
+                margin: 5px 0 0 5px;
+            }
+        }
+
+        .label-zonename{
+            font-size: 0.8rem;
+            padding-bottom:10px;
+        }
+    }
+    //End Added by SMILEDINING-SA19-0005
+
+    .group-secondtime {
+        margin-top: 10px;
+
+        .from {
+            margin: 5px 5px 0 15px;
+        }
+
+        .to {
+            margin: 5px 0 0 5px;
+        }
+
+        .show-period {
+            margin: 7px 0 0 -11%;
+
+            .show {
+                display: none;
+            }
+
+            .hidden-secondperiod {
+                /*margin: 0 0 0 0;*/
+                position: absolute;
+                left: 50%;
+            }
+        }
+    }
+}
+
+//Added by WEB-SA24-0016
+.btnRemoveCustomerNotifications {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: -4px;
+    right: 11px;
+    span{
+        font-size: 0.5em;
+        margin-top: -4px;
+    }
+}
+//End Added by WEB-SA24-0016
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .margin-top-delivery-zone2 {
+        margin-top: 9px;
+    }
+
+    #divSetting-Restaurant .margin-top-endmile {
+        margin-top: 15px;
+    }
+
+    //Added by SMILEDINING-SA19-0004
+
+    //Modified by SMILEDINING-SA19-0021
+    /*#uploadShopImage{
+        .upload-button{
+            left:-29px;
+        }        
+    }*/
+    //End Modified by SMILEDINING-SA19-0021
+
+    //Added by SMILEDINING-SA19-0021
+    #uploadShopImage{
+        .upload-button{
+            left:95px;
+            top:10px;
+        }        
+    }
+    .upload-movedown{
+        .upload-button{
+           left:95px;
+            top:10px;
+        }
+    } 
+    //End Added by SMILEDINING-SA19-0021
+
+    //Added by SMILEDINING-SA21-0035
+    #uploadShopImageBackground{
+        .upload-button{
+            left: 77px;
+            top : 10px;
+        }        
+    }
+    //End Added by SMILEDINING-SA21-0035
+    //Modified by SMILEDINING-SA19-0021
+    /*.upload-movedown{
+        .upload-button{
+            left:-29px;
+            padding-bottom:25px;
+        }
+    }*/ 
+    //End Modified by SMILEDINING-SA19-0021
+
+    //Modified by SMILEDINING-SA20-0028
+    /*.btnDel-move{
+           //right: 1px;     //Modified and End by SMILEDINING-SA19-0021
+           right: 10px;         //Added and End by SMILEDINING-SA19-0021
+           top: 69px;
+     }*/
+    //End Modified by SMILEDINING-SA20-0028
+
+    //Added by SMILEDINING-SA20-0028
+    #frmDeleteImageLogo{
+        .btnDel-move{    
+          right: 8px;  
+          top: 69px;
+        }
+    }
+
+    #frmDeleteAnnounceImage, #frmDeleteAnnounceCustomImage{
+        .btnDel-move{    
+              right: 8px;  
+              top: 107px;  
+        }
+    }
+
+    #frmUploadAnnounceImage, #frmUploadAnnounceImage{
+        .upload-button{
+            margin-left: 112px;
+            margin-top: 8px;
+        }
+    }      
+    //End Added by SMILEDINING-SA20-0028
+    //Added by SMILEDINING-SA21-0035
+    #frmDeleteImageBackground {
+        .btnDel-move{    
+            //Modified by SMILEDINING-SA21-0035#11
+            //right: 8px;
+            //top: 202px;
+            //End Modified by SMILEDINING-SA21-0035#11
+            top: 158px; //Added and End by SMILEDINING-SA21-0035#11
+        }
+    }
+    //End Added by SMILEDINING-SA21-0035
+
+    .active-moveup {
+       position: absolute;
+       margin-top: -145px;
+       right:0;
+    }
+
+    //End Added by SMILEDINING-SA19-0004
+
+    //Added by SMILEDINING-SA21-0035#11
+    #modalUploadImageBackground {
+        .modal-content{
+            min-height: auto;
+        }
+        .modal-dialog{
+            min-width: 500px;
+            max-width: 500px;
+            margin: 1.75rem auto;
+        }
+        .img-background {
+            height: 155px;
+        }
+        .drag-container {
+            width: 466px;
+            height: 155px;
+        }
+    }
+    //End Added by SMILEDINING-SA21-0035#11
+
+    //Added by WEB-SA22-0040
+    #modalMinimumOrderDeliveryCharge{
+        .divMinimumOrder {
+            .form-group {
+                label {
+                    max-width: 18%;
+                    margin-top: 0;
+                }
+                .price {
+                    max-width: 32%;
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+    //End Added by WEB-SA22-0040
+}
+
+@media (min-width: 768px) {
+    .modal-settime-size {
+        width: 580px;
+    }
+
+    //Added by WEB-SA23-0045
+    .has-discounttimemap-size {
+        max-width: 598px;
+    }
+    //End Added by WEB-SA23-0045
+
+    //Added by WEB-SA24-0012
+    .has-promotiontimemap-size {
+        max-width: 580px;
+    }
+    //End Added by WEB-SA24-0012
+
+    //Modified by SMILEDINING-SA19-0021
+    /*//Added by SMILEDINING-SA19-0004   
+    .btnDel-move{
+           right: 17%;
+           top: 8px;
+     }
+    //End Added by SMILEDINING-SA19-0004*/
+    //End Modified by SMILEDINING-SA19-0021
+
+    //Modified by SMILEDINING-SA20-0028
+    /*//Added by SMILEDINING-SA19-0021
+    .btnDel-move{
+           right: 10%;
+           top: 21px;
+     }
+    //End Added by SMILEDINING-SA19-0021*/
+    //End Modified by SMILEDINING-SA20-0028
+
+    //Added by SMILEDINING-SA20-0028
+    #frmDeleteImageLogo{
+    .btnDel-move{    
+            right: 55px;
+        }
+    }
+
+    #frmDeleteAnnounceImage, #frmDeleteAnnounceCustomImage{
+        .btnDel-move{    
+              right: 55px;  
+        }
+    }    
+    //End Added by SMILEDINING-SA20-0028
+
+    //Added by SMILEDINING-SA19-0017
+    .pickup-delivery-move{
+         margin-left: 25%;
+     }
+    //End Added by SMILEDINING-SA19-0017
+
+}
+
+.row.row-grid{
+    label{
+        margin-top:15px;
+    }
+}
+
+.row.row-grid [class*="col-"] + [class*="col-"] {
+    margin-top: 15px; 
+}
+
+@media (min-width: 1200px) {
+  .row.row-grid [class*="col-lg-"] + [class*="col-lg-"] {
+    margin-top: 15px; 
+  }
+}
+
+@media (min-width: 992px) {
+  .row.row-grid [class*="col-md-"] + [class*="col-md-"] {
+    margin-top: 15px; 
+  } 
+
+    //Added by WEB-SA22-0040
+    #modalMinimumOrderDeliveryCharge{
+        .divMinimumOrder {
+            .form-group {
+                label {
+                    //max-width: 140px; //Modified and End by WEB-SA22-0040#1
+                    max-width: 18%; //Added and End by WEB-SA22-0040#1
+                    margin-top: 0;
+                }
+                .price {
+                    //max-width: 242px; //Modified and End by WEB-SA22-0040#1
+                    max-width: 32%; //Added and End by WEB-SA22-0040#1
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+    //End Added by WEB-SA22-0040
+}
+
+@media (min-width: 768px) {
+  .row.row-grid [class*="col-sm-"] + [class*="col-sm-"] {
+    margin-top: 15px;
+  } 
+}
+
+//Added by SMILEDINING-SA21-0035#11
+@media (min-width: 768px) and (max-width: 991px){
+    #modalUploadImageBackground {
+        .modal-dialog{
+            max-width: 700px;
+        }
+        .img-background {
+            height: 222px;
+        }
+        .drag-container {
+            width: 666px;
+            height: 222px;
+        }
+    }
+}
+//End Added by SMILEDINING-SA21-0035#11
+
+//Added by SMILEDINING-SA20-0006
+.txt-tip-setting {
+    display:inline-flex;
+    position:relative;
+    margin-right: 15px;
+}
+
+.delete-tip {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 60px;
+    top: -48px;
+    right: 0px;
+
+    span{
+        font-size: 0.5em;
+        margin-top: -4px;
+    }
+}
+.plus-tipguide {
+    margin-top: 5px;
+}
+
+//Added by SMILEDINING-SA20-0016
+/*.btn-outline-red {
+    color: $btn-outline-red;
+    background-color: transparent;
+    border-color: $btn-outline-red;
+
+    &:hover{
+        color: $white;
+        background-color: $btn-outline-red;
+        border-color: $btn-outline-red;
+    }
+}
+
+.tab-list-promotion {
+    height: 50px;
+}
+
+.cardbody-groupfood {
+    max-height: 300px;
+}
+
+.scoll_groupfood {
+    overflow-y: auto;
+    overflow-x: hidden;
+    align-content: center;
+}
+
+.button-food{
+    background-color: $btn-group-food;
+    color:$white;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    &.group{
+        width: 260px;
+        height: 40px;
+    }
+    &.free{
+        width: 150px;
+        height: 40px;
+    }
+}
+
+.button_groupfood {
+    background-color: #f58e00;
+    width: 260px;
+    height: 40px;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.button_freefood {
+    background-color: #f58e00;
+    width: 150px;
+    height: 40px;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.card-price {
+    width: 250px;
+    height: 140px;
+}
+
+.card-food {
+    width: 300px;
+    height: 250px;
+    margin-right: 10px;
+    min-width: 300px;
+}
+
+.card-food-main {
+    height: 400px;
+}
+
+.card-active {
+    border-color: red;
+}
+
+.label-red {
+    color: #c80d0d;
+}
+
+.label-nodata {
+    margin-top: 10px;
+    margin-left: 20px;
+    color: darkblue;
+}
+
+.btn-delfood {
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.scoll-card-price {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.card-main{
+    height:440px;
+}*/
+//End Added by SMILEDINING-SA20-0016
+
+@media (max-width: 575px) {
+
+    .delete-tip {
+        left: 80%;
+        top: -50px;
+    }
+
+    #tb-tipguide {
+        border-spacing: 10px;
+        border-collapse: separate;
+    }
+
+    .plus-tipguide {
+    margin-top: 10px;
+    }
+    //Added by SMILEDINING-SA21-0035#11
+    #modalUploadImageBackground {
+        .modal-content{
+            min-height: auto;
+        }
+        .modal-dialog{
+            max-width: 300px;
+            min-width: 300px;
+            margin: 1.75rem auto;
+        }
+        .img-background {
+            height: 88.5px;
+        }
+        .img-background-mobile {
+            height: 159px;
+        }
+        .drag-container {
+            width: 266px;
+            height: 100px;
+
+            &.mobile{
+                height: 159px;
+            }
+        }
+        .text-drag {
+            font-size: 1rem;
+            padding: 5px 15px;
+
+            i {
+                font-size: 0.9rem;
+            }
+        }
+    }
+    //End Added by SMILEDINING-SA21-0035#11
+}
+@media (min-width: 576px) and (max-width: 1199px) {
+    .delete-tip {
+        left: 50px;
+    }
+}
+//End Added by SMILEDINING-SA20-0006
+
+//Added by SMILEDINING-SA20-0016
+.btn-outline-red {
+    color: #EA3D52;
+    background-color: transparent;
+    border-color: #EA3D52;
+}
+
+.btn-outline-red:hover {
+    color: white;
+    background-color: #EA3D52;
+    border-color: #EA3D52;
+}
+
+//Added by SMILEDINING-SA20-0043
+.btn-outline-orange {
+    color: $theme-color-orange;
+    background-color: transparent;
+    border-color: $theme-color-orange;
+    &:hover {
+        color: white;
+        background-color: $theme-color-orange;
+        border-color: $theme-color-orange; 
+    }
+}
+//End Added by SMILEDINING-SA20-0043
+
+.tab-list-promotion {
+    height: 50px;
+}
+
+@media (max-width: 767px) {
+    .tab-list-promotion {
+        height: 80px;
+    }
+}
+
+.cardbody-groupfood {
+    max-height: 300px;
+}
+
+@media (max-height: 650px) {
+    .cardbody-groupfood {
+        max-height: 200px;
+    }
+}
+
+.scoll_groupfood {
+    overflow-y: auto;
+    overflow-x: hidden;
+    align-content: center;
+}
+
+.button_groupfood {
+    background-color: #f58e00;
+    width: 260px;
+    height: 40px;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.button_freefood {
+    background-color: #f58e00;
+    width: 150px;
+    height: 40px;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.card-price {
+    width: 250px;
+    height: 140px;
+}
+
+.card-food {
+    width: 300px;
+    height: 250px;
+    margin-right: 10px;
+    min-width: 300px;
+}
+.card-food-main {
+    height: 400px;
+}
+@media (max-height: 650px) {
+    .card-food {
+        width: 300px;
+        height: 400px;
+        margin-right: 10px;
+        min-width: 300px;
+    }
+}
+
+.card-active {
+    border-color: red;
+}
+
+.label-red {
+    color: #c80d0d;
+}
+
+.label-nodata {
+    margin-top: 10px;
+    margin-left: 20px;
+    color: darkblue;
+}
+
+.btn-delfood {
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.scoll-card-price {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.card-main{
+    height:440px;
+}
+
+@media (min-width: 361px) and (max-width: 414px) {
+    .button_groupfood {
+        width: 250px;
+    }
+}
+
+@media (max-width: 360px) {
+    .button_groupfood {
+        width: 180px;
+    }
+}
+
+#modal-content-promotion{
+    height:600px;
+}
+.card-body {
+    min-height: 140px;
+    min-width: 250px;
+    margin-right: 5px;
+
+    .left {
+        float: left;
+        width: 300px;
+        height: 470px;
+        padding: 20px;
+        background: rgba(191, 191, 191, 0.15);
+        margin-right: 10px;
+
+        .list {
+            .dx-list-group-header {
+                color: #f05b41;
+                font-weight: normal;
+                font-size: 18px;
+            }
+        }
+    }
+
+    .center {
+        float: left;
+        padding-top: 200px;
+    }
+
+    .right {
+        float: left;
+        width: 349px;
+        height: 470px;
+        padding: 20px;
+        background: rgba(191, 191, 191, 0.15);
+        margin-left: 10px;
+        overflow-y:auto;
+    }
+}
+//End Added by SMILEDINING-SA20-0016
+
+//Added by SMILEDINING-SA20-0031
+.shop-close-to {
+    margin: 5px 25px 0 0;
+}
+
+.shop-close-from {
+    margin: 5px 15px 0 15px;
+}
+
+.hide-period {
+    margin-top: 4px;
+
+    .danger {
+        padding-left: 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .shop-close-to {
+        margin: 5px 30px 0 0;
+    }
+
+    .hide-period {
+        .danger {
+            padding-left: 0px;
+        }
+    }
+}
+//End Added by SMILEDINING-SA20-0031
+
+//Added by SMILEDINING-SA20-0048
+.tab-discountfile{
+    border-bottom-width:5px;
+    border-bottom-color:$theme-color-orange-dark;
+    border-bottom-style:solid;
+    margin-top:-30px;
+    padding-bottom:5px;
+}
+.label-uploadExcel {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: normal;
+}
+.instruction-excel-icon{
+    width:20px;
+    height:20px;
+    border-radius:15px;
+    padding-top:1px;
+    padding-left:6px;
+    padding-right:6px;
+    margin-left:10px;
+    text-align:center;
+    font-size:12px;
+}
+//End Added by SMILEDINING-SA20-0048

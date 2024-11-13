@@ -1,0 +1,24 @@
+﻿/*
+*   SMILEDINING-SA20-0007      07/07/2020      Customize               1. New feature Gift Card.
+*/
+/*Added by SMILEDINING-SA20-0007*/
+.searchStatement .card-header .print {
+  position: absolute;
+  right: 10px;
+  top: 5px; }
+
+/*End Added by SMILEDINING-SA20-0007*/
+/*Modified by SMILEDINING-SA20-0007*/
+/*.summary-margin-top {
+    margin-top: 15px;
+}
+
+.table-statement {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.statement-margin-top {
+    margin-top: 5px;
+}*/
+/*End Modified by SMILEDINING-SA20-0007*/

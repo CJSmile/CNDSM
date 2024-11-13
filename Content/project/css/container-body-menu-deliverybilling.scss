@@ -1,0 +1,42 @@
+﻿/*
+*   SMILEDINING-SA22-0013#1      23/05/2022      Customize               1. Move menu delivery billing leave of menu liveorder.
+    SMILEDINING-SA22-0013#4      26/05/2022      Customize               1. Edit all code controller and service and edit print report. 
+    SMILEDINING-SA22-0033        25/08/2022      Customize               1. Add amount deposit and email customer for delivery billing in WebSupport and WebOwner.
+*/
+
+.deliveryBilling {
+    .card-header {
+        .print {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+        }
+    }
+
+    .card-block {
+        #divDeliveryBillingPrint {
+            .shop-street {
+                width: 20rem;
+            }
+
+            .table-head-color {
+                color: white;
+
+                .column-1 {
+                    //width: 8rem; //Modified and End by SMILEDINING-SA22-0033
+                    width: 7.7rem; //Added and End by SMILEDINING-SA22-0033
+                }
+
+                .column-3 {
+                    width: 10rem;
+                }
+            }
+            //Added by SMILEDINING-SA22-0013#4
+            .commission {
+                font-size: .7rem;
+                margin-top: 10px;
+            }
+            //End Added by SMILEDINING-SA22-0013#4
+        }
+    }
+}

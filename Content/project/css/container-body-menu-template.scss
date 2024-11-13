@@ -1,0 +1,188 @@
+﻿@import "mixin/_variables.scss";
+@import "mixin/_breakpoints.scss";
+
+$box-line-color : $orange;
+$link-section-icon-hover: $orange;
+
+
+.mainContent{
+    margin: 0 0 10px 0;
+}
+
+.detailContent{
+    margin: 0 0 10px 0;
+}
+
+.panel-footer.change-background {
+  background-color: $white; 
+}
+
+.logo{
+    border: 1px dotted $box-line-color;
+    padding: 5px;
+    min-width: 120px;
+    min-height: 120px;
+    border-radius: 5px;
+    margin: 10px 0;
+    img{
+        padding: 2px;
+        line-height: 1.42857;
+        background-color: $white;
+        border: 1px solid $thumbnail-border-color;
+        border-radius: 4px;
+        -webkit-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        display: inline-block;
+        margin: 2px;
+        display:block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    i{
+        opacity: 0.1;
+        text-align: center;
+        display: block;
+    }
+    span{
+        display:block;
+        text-align:center;
+    }
+}
+
+.clear-img{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 90px;
+    right: 0;
+
+    span{
+        font-size: 0.5em;
+        margin-top: -4px;
+    }
+}
+
+.group-template{
+    .section.cart-title{
+        position: relative;
+        .link-edit{
+            position: absolute;
+            right: 60px;
+            &:hover{
+                color: $link-section-icon-hover;
+            }
+        }
+        .link-visible{
+            @extend .link-edit;
+            right : 30px;
+        }
+        .link-zoom{
+            @extend .link-edit;
+            right : 0;
+        }
+    }
+    .card-group{
+        max-height: 460px;
+        overflow:hidden;
+        overflow-y:auto;
+    }
+}
+
+
+.box{
+    padding: 5px;
+    border: solid 1px $box-line-color ;
+    margin: 2px;
+    border-radius: 5px;
+    height: 220px;
+    overflow-y: auto;
+
+    & .foodImage{
+        padding: 2px;
+        line-height: 1.42857;
+        background-color: $white;
+        border: 1px solid $thumbnail-border-color;
+        border-radius: 4px;
+        -webkit-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        display: inline-block;
+        margin: 2px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    & .templateImage{
+        padding: 2px;
+        line-height: 1.42857;
+        background-color: $white;
+        border: 1px solid $thumbnail-border-color;
+        border-radius: 4px;
+        -webkit-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        display: inline-block;
+        margin: 2px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.box-drop
+{
+    border: 1px dotted $box-line-color;
+    padding: 5px;
+    min-width: 120px;
+    min-height: 120px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    img{
+        padding: 2px;
+        line-height: 1.42857;
+        background-color: $white;
+        border: 1px solid $thumbnail-border-color;
+        border-radius: 4px;
+        -webkit-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        display: inline-block;
+        margin: 2px;
+        display:block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    i{
+        margin-top: 10px;
+        opacity: 0.1;
+        text-align: center;
+        display: block;
+    }
+    span{
+        display:block;
+        text-align:center;
+    }
+
+    & .badge-custom {
+        display: block;
+        position: absolute;
+        top: -5px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        border-radius: 25px;
+        line-height: 20px;
+        color: $white;
+        border-color: $orange;
+        background-color:$orange;
+    }
+}
+
+.showPrice{
+    margin: 10px 0 10px 0;
+}
+

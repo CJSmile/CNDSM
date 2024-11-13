@@ -1,0 +1,1025 @@
+﻿/*
+    SMILEDINING-SA20-0016           21/10/2020       Customize              1. Promotion free food.
+    SMILEDINING-SA21-0018           21/05/2021       Customize              1. Setting food detail by third party to deliverect.
+    SMILEDINING-SA21-0021           11/06/2021       Customize              1. Setting icon image for show in smileDining.
+    SMILEDINING-SA21-0031           21/07/2021       Customize              1. Fix bug when add choice modify on WebOwner will show SmileDining.
+                                                                            2. Edit UI close image upload in photo frame.
+    SMILEDINING-SA21-0044           19/08/2021       Customize              1. Fix click browse image announcement
+    SMILEDINING-SA21-0066#6         17/11/2021       Customize              1. Fix bug WebOwner disable edit food and choice and choiceOption from deliverect, and edit path food image from deliverect.
+                                                                            2. Fix bug WebDining edit path food image and plu from deliverect, and alert confirm payment when channel is busy mode.
+    SMILEDINING-SA21-0075           22/11/2021       Customize              1. Add crop image before upload.
+    SMILEDINING-SA21-0075#2         23/11/2021       Customize              1. Fix image low quality when show on smiledining.
+    SMILEDINING-SA21-0078           24/11/2021       Customize              1. Fix UI when close image in photo frame.
+    SMILEDINING-SA21-0066#24        15/03/2022       Customize              1. Add unlock food, choice and choiceOption from Deliverect in webOwner.
+    SMILEDINING-SA21-0066#25        31/03/2022       Customize              1. Fix bug unlock choice and choiceOption in WebOwner.
+    WEB-SA23-0044                   04/08/2023       Customize              1. Fix bug copy food from third party foodset to Smile Dining foodset and drag foodset on webOwner.
+*/
+
+@import "mixin/_variables.scss";
+@import "mixin/_breakpoints.scss";
+
+$theme-color: #FF9800;
+$light-color: #FFB74D;
+$dark-color: #F57C00;
+$color-darkgray: #888;
+$default-color: #FFF;
+$img-upload-rotate: lighten(#2196F3,10%);
+$border-food: #EEE;
+$box-shadow-color: RGBA(0,0,0,.1);
+$input-span-bg: #E74C3C;
+$default-choice-check-color: #2ECC71;
+$link-edit-food-color: #F66;
+$bg-color-drag: #F0F0F0;
+$bg-color-head-foodcat: #FFF2E5;
+$color-info: #5BC0DE;
+$color-dark-info: #4CA8C3;
+$tb-header-border-color: #DCDCDC;
+$light-gray: #EEE;
+
+/*upload image*/
+.image-uploader {
+    text-align: center;
+    vertical-align: middle;
+    color: $color-darkgray;
+    border: 1px dotted $color-darkgray;
+    height: 115px;
+    width: 115px;
+    overflow: hidden;
+
+    i {
+        margin: 20px 0 0 2px;
+        opacity: 0.25;
+    }
+
+    small {
+        display: block;
+    }
+
+    .filled {
+        cursor: move;
+    }
+
+    &:not(.filed) {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 1;
+            border: 1px dashed $light-color !important;
+        }
+    }
+
+    .image {
+        border: none;
+    }
+
+    .filled label {
+        display: none;
+    }
+
+    .display-uploader {
+        display: none;
+    }
+
+    .zoom {
+        position: absolute;
+        //Modified by SMILEDINING-SA21-0078
+        /*top: -12px; 
+        right: 0;*/
+        //End Modified by SMILEDINING-SA21-0078
+        //Added by SMILEDINING-SA21-0078
+        top: -16px;
+        right: -13px;
+        //End Added by SMILEDINING-SA21-0078
+
+        .plus, .minus, .close-uploader {
+            font-family: "Glyphicons Halflings";
+            font-size: 1.4em;
+            cursor: pointer;
+            opacity: 0.7;
+            padding: 0 0 0 5px;
+            @include gb_display-flexbox();
+
+            &:hover {
+                opacity: 1;
+            }
+
+            &.edit {
+                margin-left: -120px;
+            }
+            //Added by SMILEDINING-SA21-0031
+            &.edit-food {
+                margin-left: -200px;
+            }
+            //End Added by SMILEDINING-SA21-0031
+        }
+
+        .plus:before {
+        }
+
+        .minus:before {
+            content: "\e030";
+            color: $img-upload-rotate;
+        }
+
+        .close-uploader:before {
+            margin: 10px 0.4rem 0 0;
+            content: "\e014";
+            color: $red;
+        }
+    }
+}
+
+.popupFilterMenu { 
+    .dx-popup-title {
+    color: $color-darkgray;
+    background-color: $bg-color-head-foodcat;
+    padding: 15px 20px;
+    font-size: 1.3em;
+    }
+}
+.foodSetDrag {
+    width: 100%;
+    background: $white;
+}
+
+.foodSetDrag .foodSetDragBox {
+    margin: 0 0.4rem 0 0;
+    //Added by WEB-SA23-0044
+    span {
+        display: inline-block;
+        width: 100%
+    }
+    //End Added by WEB-SA23-0044
+}
+
+.foodSetDrag .placeholder {
+    //Modified by WEB-SA23-0044
+    //background: $bg-color-drag;
+    //border: 5px dashed $light-color;
+    //End Modified by WEB-SA23-0044
+    //Added by WEB-SA23-0044
+    display: inline-block;
+    height: 5px;
+    border: 5px solid $light-color;
+    margin-right: 0.4rem;
+    //End Added by WEB-SA23-0044
+}
+
+//Added by SMILEDINING-SA20-0016
+.foodSwitch-text {
+    font-size: 1rem;
+}
+//End Added by SMILEDINING-SA20-0016
+
+.foodCatDrag {
+    width: 100%;
+    margin-right: .5%;
+    background: $white;
+}
+
+.foodCatDrag .foodCatDragBox {
+    margin: 10px 0 0 0 ;
+}
+
+.foodCatDrag .placeholder {
+    margin: 0 0 20px;
+    background: $bg-color-drag;
+    border: 2px dashed $light-color;
+}
+
+.foodDrag {
+    width: 100%;
+    margin-right: .5%;
+    background: $white;
+}
+
+.foodDrag .foodDragBox {
+    margin: 0 0 20px;
+}
+
+.foodDrag .placeholder {
+    margin: 0 0 20px;
+    background: $bg-color-drag;
+    border: 2px dashed $light-color;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.draggingFoodCat {
+    cursor: move;
+}
+
+.border-food {
+    padding: 5px;
+    border: 1px solid $border-food;
+    border-left-width: 5px;
+    margin-bottom: 10px;
+
+    &:hover {
+        border-color: $light-color;
+    }
+}
+
+.content-food .foodDesc {
+    position: absolute;
+    top: 25px;
+    left: 118px;
+    width: 380px;
+}
+
+.content-food .foodName {
+    position: relative;
+    top: -11px;
+    margin-left: 10px;
+    overflow: hidden;
+    font-size: 1.25rem;
+    display: inline-block;
+}
+
+.del-underline {
+    position: relative;
+    a:focus, a:hover {
+        text-decoration: none;
+    }
+    .link-paste {
+        position: absolute;
+        right: 90px;
+        &:hover {
+            color: $default-choice-check-color;
+        }
+    }
+    .link-edit {
+        position: absolute;
+        right: 60px;
+        &:hover {
+            color: $default-choice-check-color;
+        }
+    }
+    .link-visible {
+        @extend .link-edit;
+        right : 30px;
+    }
+    .link-zoom {
+        @extend .link-edit;
+        right : 0;
+    }
+}
+
+.link-edit-food {
+    color: $link-edit-food-color !important;
+}
+
+.link-copy-food {
+    color: $color-info !important;
+    margin-right: 8px;
+
+    &:hover {
+        color: $color-dark-info !important;
+    }
+
+    &:focus {
+        .border-copy-food {
+            outline: solid 10px $color-dark-info;
+        }
+    }
+}
+
+/*Added by SMILEDINING-SA21-0018*/
+.link-link-food {
+    color: #090909 !important;
+    margin-right: 8px;
+    margin-top: 8px;
+    cursor : pointer;
+}
+.select-group{
+    border: 2px solid #337ab7;
+}   
+/*End Added by SMILEDINING-SA21-0018*/
+
+.copy-active {
+    z-index: 0;
+    pointer-events: auto;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.copy-not-active {
+    display: none;
+    z-index: 1;
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+}
+
+.border-copy-food {
+    border: 1px solid $theme-color !important;
+    border-left-width: 5px !important;
+
+    .link-copy-food {
+        color: $color-darkgray;
+    }
+}
+
+.panel-cart {
+    position: fixed;
+    top: 15%;
+    right: 5%;
+    display: inline-block;
+    width: 250px;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    overflow: hidden;
+    z-index: 1;
+
+    .card-header {
+        padding: 5px 0 0 0;
+        font-weight: bold;
+        background-color: $color-info;
+        color: $white;
+    }
+
+    .card-block {
+        padding: 4px 0px 4px 0px;
+    }
+
+    .food {
+        display: block;
+        margin: 0 3px 0 3px;
+        padding: 6px 5px 6px 20px;
+
+        .foodName {
+            width: 210px;
+            font-size: 15px;
+        }
+
+        .delete {
+            z-index: 2;
+            position: relative;
+            right: -5px;
+            padding-right: 5px;
+
+            a {
+                i {
+                    color: $red;
+                }
+            }
+        }
+
+        &:hover {
+            cursor: default;
+            -webkit-box-shadow: inset 0 100px 50px $border-food;
+            -moz-box-shadow: inset 0 100px 50px $border-food;
+            box-shadow: inset 0 100px 50px $border-food;
+            width: auto;
+        }
+    }
+}
+
+/*Popupover*/
+.margin-popupover {
+    margin: 0 0 10px 0;
+    width: 300px;
+}
+
+.popover-custom {
+    .dx-popup-wrapper > .dx-overlay-content {
+        background: $default-choice-check-color;
+        border: 1px solid $tb-header-border-color;
+    }
+
+    .dx-overlay-wrapper {
+        color: $white;
+    }
+
+    .dx-popover-wrapper .dx-popover-arrow:after, .dx-popover-wrapper.dx-popover-without-title .dx-popover-arrow:after, .dx-popover-wrapper.dx-position-bottom .dx-popover-arrow:after {
+        background: $default-choice-check-color;
+    }
+}
+
+/*end Popupover*/
+
+.margin-time {
+    margin: 10px 0 0 0;
+}
+
+.padding-showtime {
+    padding: 0 50px 0 50px;
+}
+
+#btnEditSection {
+    cursor: pointer;
+}
+
+#divEditItem {
+    cursor: pointer;
+}
+
+.card-foodset-deactive {
+    color: $color-darkgray;
+    text-decoration: line-through;
+    border-color: $thumbnail-border-color;
+}
+
+.card-heading-foodcategory {
+    color: $black;
+    background-color: $bg-color-head-foodcat;
+    border-color: $thumbnail-border-color;
+}
+
+.card-foodcategory-deactive {
+    color: $color-darkgray;
+    text-decoration: line-through;
+    background-color: $light-gray;
+    border-color: $thumbnail-border-color;
+}
+
+.item-deactive {
+    color: $tb-header-border-color;
+}
+
+.item-desc {
+    color: $color-darkgray;
+}
+
+.padding-button {
+    padding: 6px 12px 6px 12px;
+}
+
+.dx-toolbar-label .dx-toolbar-item-content > div {
+    font-size: 15px;
+}
+
+.link-foodcategory {
+    position: relative;
+    a {
+        text-decoration: none !important;
+        color: $color-darkgray;
+        &:after {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: $default-choice-check-color;
+            content: '';
+            margin-top: 22px;
+            -webkit-transition: -webkit-transform 0.3s ease;
+            -moz-transition: -moz-transform 0.3s ease;
+            -o-transition: transform 0.2s ease;
+            transition: transform 0.2s ease;
+            -webkit-transform: scale(0.25);
+            -moz-transform: scale(0.25);
+            -ms-transform: scale(0.25);
+            -o-transform: scale(0.25);
+            transform: scale(0.25);
+            opacity: 0;
+        }
+        &:hover:after {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            -ms-transform: scale(1);
+            -o-transform: scale(1);
+            transform: scale(1);
+        }
+
+        &:hover {
+            color: $default-choice-check-color;
+        }
+        &:active{
+            width:0;
+        }
+    }
+}
+
+//Added by SMILEDINING-SA21-0021
+.custom-item {
+    position: relative;
+    min-height: 30px;
+    margin-top: 3px;
+
+    .product-name {
+        display: inline-block;
+        padding-left: 35px;
+        text-indent: 0;
+        line-height: 30px;
+        font-size: 15px;
+        width: 100%;
+    }
+
+    & > img {
+        left: 1px;
+        position: absolute;
+        top: 50%;
+        margin-top: -15px;
+    }
+
+    .current-value {
+        padding: 10px 0;
+
+        & > span {
+            font-weight: bold;
+        }
+    }
+}
+
+.img-icon {
+    height: 30px;
+    width: 30px;
+}
+
+.dx-dropdowneditor-input-wrapper .custom-item > img {
+    padding-left: 8px;
+}
+
+.dx-theme-material #custom-templates .dx-texteditor-buttons-container {
+    display: none;
+}
+
+.dx-theme-material .dx-selectbox-container .product-name {
+    padding-left: 58px;
+}
+//End Added by SMILEDINING-SA21-0021
+
+.margin-notice {
+    margin: 0% 3.5%;
+}
+//Added by SMILEDINING-SA21-0078
+@media (min-width: 319px) and (max-width: 569px) {
+    .image-uploader .zoom {
+        right: -30px;
+    }
+
+    .image-uploader .zoom .close-uploader.edit-food {
+        margin-left: -216px;
+    }
+}   
+@media (min-width: 359px) and (max-width: 639px) {
+    .image-uploader .zoom {
+        right: -21px;
+    }
+    .image-uploader .zoom .close-uploader.edit-food {
+        margin-left: -238px;
+    }
+}
+@media (width: 375px) and (height: 667px) {
+    .image-uploader .zoom {
+        right: -17px;
+    }
+    .image-uploader .zoom .close-uploader.edit-food {
+        margin-left: -245px;
+    }
+}
+@media (min-width: 375px) and (height: 812px) {
+    .image-uploader .zoom {
+        right: -16px;
+    }
+}   
+@media (min-width: 410px) and (max-width: 824px) {
+    .image-uploader .zoom {
+        right: -9px;
+    }
+    .image-uploader .zoom .close-uploader.edit-food{
+        margin-left: -264px;
+    }
+}
+@media (width: 768px) and (height: 1024px) {
+    .image-uploader .zoom {
+        right: 17px;
+    }
+    .image-uploader .zoom .close-uploader.edit-food {
+        margin-left: -264px;
+    }
+}   
+//End Added by SMILEDINING-SA21-0078
+//Modified by SMILEDINING-SA21-0078
+/*@media (min-width: 320px) and (max-width: 447px) {
+           .image-uploader .zoom  {
+        right: 30px;
+    }
+}*/
+//End Modified by SMILEDINING-SA21-0078
+
+@media (min-width: 448px) and (max-width: 575px) {
+       .image-uploader .zoom  {
+        right: 135px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+        .image-uploader .zoom {
+       right: -35px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .image-uploader .zoom  {
+        //right: -50px; //Modified and End by SMILEDINING-SA21-0078
+        right: 17px; //Added and End by SMILEDINING-SA21-0078
+    }
+}
+
+@media (min-width: 320px) and (max-width: 574px) {
+    .image-uploader {
+        width: 75px;
+        height: 75px;
+        i {
+            margin: 20px 0 0 2px;
+            opacity: 0.25;
+        }
+    } 
+
+    .image-uploader-edit {
+    width: 180px;
+    height: 180px;
+
+        img {
+            width: 180px;
+            height: 180px;
+        }
+
+        i {
+            margin: 45px 0 0 4px;
+            opacity: 0.25;
+        }
+
+        small {
+            margin-bottom: 45px;
+        }
+
+    }
+}
+//Added by SMILEDINING-SA21-0044
+.image-browse{
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    margin: 0;
+    opacity: 0;
+}
+//End Added by SMILEDINING-SA21-0044
+
+//Added by SMILEDINING-SA21-0066#6
+.logo-deliverect {
+    img {
+        vertical-align: text-bottom;
+        margin-right: 2px;
+    }
+    //Added by SMILEDINING-SA21-0066#24
+    label {
+        font-weight: normal;
+    }
+    span {
+        i {
+            //font-size: 1.3rem; //Modified and End by SMILEDINING-SA21-0066#25
+            //Added by SMILEDINING-SA21-0066#25
+            font-size: 1.5rem;
+            vertical-align: bottom;
+            margin-right: 9px;
+            //End Added by SMILEDINING-SA21-0066#25
+        }
+    }
+    //End Added by SMILEDINING-SA21-0066#24
+}
+//End Added by SMILEDINING-SA21-0066#6
+
+//Added by SMILEDINING-SA21-0075
+//Cropper
+.image-preview {
+    overflow: hidden;
+    width: 160px;
+    height: 160px;
+    margin: 10px;
+    border: 1px solid red;
+}
+.cropper-container {
+    direction: ltr;
+    font-size: 0;
+    line-height: 0;
+    position: relative;
+    -ms-touch-action: none;
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.cropper-container img {
+    display: block;
+    height: 100%;
+    image-orientation: 0deg;
+    max-height: none !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    min-width: 0 !important;
+    width: 100%;
+}
+
+.cropper-wrap-box,
+.cropper-canvas,
+.cropper-drag-box,
+.cropper-crop-box,
+.cropper-modal {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.cropper-wrap-box,
+.cropper-canvas {
+    overflow: hidden;
+}
+
+.cropper-drag-box {
+    background-color: #fff;
+    opacity: 0;
+}
+
+.cropper-modal {
+    background-color: #000;
+    opacity: 0.5;
+}
+
+.cropper-view-box {
+    display: block;
+    height: 100%;
+    outline: 1px solid #39f;
+    outline-color: rgba(51, 153, 255, 0.75);
+    overflow: hidden;
+    width: 100%;
+}
+
+.cropper-dashed {
+    border: 0 dashed #eee;
+    display: block;
+    opacity: 0.5;
+    position: absolute;
+}
+
+.cropper-dashed.dashed-h {
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    height: calc(100% / 3);
+    left: 0;
+    top: calc(100% / 3);
+    width: 100%;
+}
+
+.cropper-dashed.dashed-v {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    height: 100%;
+    left: calc(100% / 3);
+    top: 0;
+    width: calc(100% / 3);
+}
+
+.cropper-center {
+    display: block;
+    height: 0;
+    left: 50%;
+    opacity: 0.75;
+    position: absolute;
+    top: 50%;
+    width: 0;
+}
+
+.cropper-center::before,
+.cropper-center::after {
+    background-color: #eee;
+    content: ' ';
+    display: block;
+    position: absolute;
+}
+
+.cropper-center::before {
+    height: 1px;
+    left: -3px;
+    top: 0;
+    width: 7px;
+}
+
+.cropper-center::after {
+    height: 7px;
+    left: 0;
+    top: -3px;
+    width: 1px;
+}
+
+.cropper-face,
+.cropper-line,
+.cropper-point {
+    display: block;
+    height: 100%;
+    opacity: 0.1;
+    position: absolute;
+    width: 100%;
+}
+
+.cropper-face {
+    background-color: #fff;
+    left: 0;
+    top: 0;
+}
+
+.cropper-line {
+    background-color: #39f;
+}
+
+.cropper-line.line-e {
+    cursor: ew-resize;
+    right: -3px;
+    top: 0;
+    width: 5px;
+}
+
+.cropper-line.line-n {
+    cursor: ns-resize;
+    height: 5px;
+    left: 0;
+    top: -3px;
+}
+
+.cropper-line.line-w {
+    cursor: ew-resize;
+    left: -3px;
+    top: 0;
+    width: 5px;
+}
+
+.cropper-line.line-s {
+    bottom: -3px;
+    cursor: ns-resize;
+    height: 5px;
+    left: 0;
+}
+
+.cropper-point {
+    background-color: #39f;
+    height: 5px;
+    opacity: 0.75;
+    width: 5px;
+}
+
+.cropper-point.point-e {
+    cursor: ew-resize;
+    margin-top: -3px;
+    right: -3px;
+    top: 50%;
+}
+
+.cropper-point.point-n {
+    cursor: ns-resize;
+    left: 50%;
+    margin-left: -3px;
+    top: -3px;
+}
+
+.cropper-point.point-w {
+    cursor: ew-resize;
+    left: -3px;
+    margin-top: -3px;
+    top: 50%;
+}
+
+.cropper-point.point-s {
+    bottom: -3px;
+    cursor: s-resize;
+    left: 50%;
+    margin-left: -3px;
+}
+
+.cropper-point.point-ne {
+    cursor: nesw-resize;
+    right: -3px;
+    top: -3px;
+}
+
+.cropper-point.point-nw {
+    cursor: nwse-resize;
+    left: -3px;
+    top: -3px;
+}
+
+.cropper-point.point-sw {
+    bottom: -3px;
+    cursor: nesw-resize;
+    left: -3px;
+}
+
+.cropper-point.point-se {
+    bottom: -3px;
+    cursor: nwse-resize;
+    height: 20px;
+    opacity: 1;
+    right: -3px;
+    width: 20px;
+}
+
+@media (min-width: 768px) {
+    .cropper-point.point-se {
+        height: 15px;
+        width: 15px;
+    }
+}
+
+@media (min-width: 992px) {
+    .cropper-point.point-se {
+        height: 10px;
+        width: 10px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .cropper-point.point-se {
+        height: 5px;
+        opacity: 0.75;
+        width: 5px;
+    }
+}
+
+.cropper-point.point-se::before {
+    background-color: #39f;
+    bottom: -50%;
+    content: ' ';
+    display: block;
+    height: 200%;
+    opacity: 0;
+    position: absolute;
+    right: -50%;
+    width: 200%;
+}
+
+.cropper-invisible {
+    opacity: 0;
+}
+
+.cropper-bg {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC');
+}
+
+.cropper-hide {
+    display: block;
+    height: 0;
+    position: absolute;
+    width: 0;
+}
+
+.cropper-hidden {
+    display: none !important;
+}
+
+.cropper-move {
+    cursor: move;
+}
+
+.cropper-crop {
+    cursor: crosshair;
+}
+
+.cropper-disabled .cropper-drag-box,
+.cropper-disabled .cropper-face,
+.cropper-disabled .cropper-line,
+.cropper-disabled .cropper-point {
+    cursor: not-allowed;
+}
+
+.image-cropper {
+    display: block;
+    //max-width: 500px; //Modified and End by SMILEDINING-SA21-0075#2
+    max-width: 800px; //Added and End by SMILEDINING-SA21-0075#2
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 767px){
+    #modalSetUpFoodUploadImage .modal-dialog {
+        margin: 0 auto;
+        width: 80%;
+        min-width: 80%;
+        height: 60%;
+    }
+    #modalSetUpFoodUploadImage .modal-content {
+        display: block;
+        min-height: 0ch;
+    }
+}
+
+.img-container {
+    display: block;
+    //max-width: 500px; //Modified and End by SMILEDINING-SA21-0075#2
+    max-width: 800px; //Added and End by SMILEDINING-SA21-0075#2
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+//End Added by SMILEDINING-SA21-0075
+

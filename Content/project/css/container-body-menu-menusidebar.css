@@ -1,0 +1,194 @@
+﻿@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0; }
+  to {
+    background-position: 0 0; } }
+
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0; }
+  to {
+    background-position: 0 0; } }
+
+.progress {
+  overflow: hidden;
+  height: 1rem;
+  margin-bottom: 1rem;
+  background-color: #eceeef;
+  border-radius: 0.25rem;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); }
+
+.progress-bar {
+  float: left;
+  width: 0%;
+  height: 100%;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: #fff;
+  text-align: center;
+  background-color: #0263b7;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  /*@include transition(width .6s ease);*/ }
+
+.progress-striped .progress-bar,
+.progress-bar-striped {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 40px 40px; }
+
+.progress.active .progress-bar,
+.progress-bar.active {
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+  -o-animation: progress-bar-stripes 2s linear infinite;
+  animation: progress-bar-stripes 2s linear infinite; }
+
+.progress-bar-success {
+  background-color: #5cb85c; }
+  .progress-striped .progress-bar-success {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
+
+.progress-bar-info {
+  background-color: #5bc0de; }
+  .progress-striped .progress-bar-info {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
+
+.progress-bar-warning {
+  background-color: #f0ad4e; }
+  .progress-striped .progress-bar-warning {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
+
+.progress-bar-danger {
+  background-color: #d9534f; }
+  .progress-striped .progress-bar-danger {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.eot");
+  src: url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff") format("woff"), url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular") format("svg"); }
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.scroll-menusidebar {
+  position: fixed;
+  width: 160px; }
+  .scroll-menusidebar ul {
+    display: block; }
+    .scroll-menusidebar ul li a {
+      cursor: pointer;
+      text-decoration: none !important; }
+
+.navbar-index {
+  z-index: 1; }
+
+/*Side Nav Menu FULL*/
+.side-nav-memu {
+  padding: 0;
+  width: 200px;
+  max-width: 200px; }
+  .side-nav-memu i {
+    color: #F58E00;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 15px; }
+  .side-nav-memu li {
+    overflow: hidden;
+    display: block;
+    background-color: #fff;
+    box-shadow: 1px 1px 2px RGBA(0, 0, 0, 0.2);
+    margin-bottom: 4.5px;
+    border-left: 10px solid #F58E00;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    -webkit-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+    height: 43px; }
+  .side-nav-memu li:last-child {
+    margin-bottom: 0; }
+  .side-nav-memu li a {
+    padding: 9px;
+    text-align: left;
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #000;
+    position: relative; }
+  .side-nav-memu li:hover {
+    border-color: #ffd500; }
+  .side-nav-memu li:hover a {
+    background-color: #F58E00;
+    color: #fff; }
+  .side-nav-memu li:hover i {
+    color: #fff; }
+  .side-nav-memu li.active {
+    border-color: #ffd500;
+    background-color: #F58E00; }
+    .side-nav-memu li.active a {
+      color: #fff; }
+    .side-nav-memu li.active i {
+      color: #fff; }
+  .side-nav-memu li > a:focus {
+    background-color: #F58E00 !important; }
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .side-nav-memu {
+    width: 170px;
+    max-width: 170px; } }
+
+/*Side Nav Menu SM*/
+@media (min-width: 768px) and (max-width: 991px) {
+  .scroll-menusidebar {
+    position: fixed;
+    width: 160px; }
+    .scroll-menusidebar ul {
+      display: block;
+      margin: 0 0 0 -4.5rem; }
+      .scroll-menusidebar ul li a {
+        cursor: pointer; }
+  .side-nav-memu i {
+    margin: 0.8rem; }
+  .side-nav-memu li {
+    width: 50px;
+    height: 40px;
+    background-color: #fff;
+    box-shadow: 1px 1px 2px RGBA(0, 0, 0, 0.2);
+    margin-bottom: 4px;
+    border-left: 10px solid #F58E00;
+    transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    -webkit-transition: all 300ms ease-in-out; }
+  .side-nav-memu li a {
+    padding: 0; }
+  .side-nav-memu li a span {
+    margin: 0.6rem;
+    width: 200px;
+    position: absolute;
+    visibility: hidden;
+    display: none; }
+  .side-nav-memu li:hover {
+    width: 200px;
+    z-index: 3; }
+    .side-nav-memu li:hover a span {
+      visibility: visible;
+      display: inline; } }

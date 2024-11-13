@@ -1,0 +1,52 @@
+﻿/*
+*   SMILEDINING-SA20-0007      07/07/2020      Customize               1. New feature Gift Card.
+*/
+/*Modified by SMILEDINING-SA20-0007*/
+/*@import "mixin/_variables.scss";
+@import "mixin/_breakpoints.scss";
+
+$theme-color: #FF9800;
+$light-color:  #FFB74D;
+$dark-color: #F57C00;
+$default-color: #FFF;
+$order-color: #FFF;*/
+/*End Modified by SMILEDINING-SA20-0007*/
+/*Added by SMILEDINING-SA20-0007*/
+.searchBalance .card-header .print {
+  position: absolute;
+  right: 10px;
+  top: 5px; }
+
+.searchBalance .phone .btn.print {
+  position: absolute;
+  right: 30px;
+  top: 25px; }
+
+.searchBalance #collapseBill td.remove {
+  padding: 0 0;
+  border-top: 0; }
+
+/*End Added by SMILEDINING-SA20-0007*/
+/*Modified by SMILEDINING-SA20-0007*/
+/*.summary-balance {
+    color: $dark-color;
+}
+
+.border-bill {
+    padding: 5px;
+    border: 2px solid $order-color;
+    margin-bottom: 10px;
+}
+
+.border-order {
+    padding: 5px;
+    border-left-width: 5px;
+    &:hover {
+        background-color: $order-color;
+    }
+}
+
+.mb_margin{
+    margin-top: -8px;
+}*/
+/*End Modified by SMILEDINING-SA20-0007*/
